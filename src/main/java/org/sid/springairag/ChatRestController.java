@@ -63,25 +63,25 @@ public class ChatRestController {
         UserMessage userMessage =   new UserMessage(systemMessageText, List.of(new Media(MimeTypeUtils.IMAGE_JPEG, data)));
         return chatClient.prompt().messages(userMessage).call().entity(Depenses.class);
     }
-//    @GetMapping(path = "/generateImage", produces = MediaType.IMAGE_PNG_VALUE)
-//    public byte[] generateImageDALLE() throws IOException{
-//        OpenAiImageApi openAiImageApi = new OpenAiImageApi("");
-//        OpenAiImageModel openAiImageModel = new OpenAiImageModel(openAiImageApi);
-//        ImageResponse response = openAiImageModel.call(
-//                new ImagePrompt("un chat avec un costume dans une fete avec un cafe dans sa main.",
-//                        OpenAiImageOptions.builder()
-//                                .withModel("dall-e-3")
-//                                .withQuality("hd")
-//                                .withN(1)
-//                                .withResponseFormat("b64_json")
-//                                .withHeight(1024)
-//                                .withWidth(1024).build()
-//                )
-//
-//        );
-//        String image = response.getResult().getOutput().getB64Json();
-//        return Base64.getDecoder().decode(image);
-//    }
+    @GetMapping(path = "/generateImage", produces = MediaType.IMAGE_PNG_VALUE)
+    public byte[] generateImageDALLE() throws IOException{
+        OpenAiImageApi openAiImageApi = new OpenAiImageApi("");
+        OpenAiImageModel openAiImageModel = new OpenAiImageModel(openAiImageApi);
+        ImageResponse response = openAiImageModel.call(
+                new ImagePrompt("un chat avec un costume dans une fete avec un cafe dans sa main.",
+                        OpenAiImageOptions.builder()
+                                .withModel("dall-e-3")
+                                .withQuality("hd")
+                                .withN(1)
+                                .withResponseFormat("b64_json")
+                                .withHeight(1024)
+                                .withWidth(1024).build()
+                )
+
+        );
+        String image = response.getResult().getOutput().getB64Json();
+        return Base64.getDecoder().decode(image);
+    }
     @GetMapping(path = "/generateImageSD", produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] generateImageSD(){
         RestClient restClient = RestClient.create();
